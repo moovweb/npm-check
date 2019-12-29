@@ -58,6 +58,7 @@ Path
 
 Options
   -u, --update          Interactive update.
+  -y, --update-all      Uninteractive update. Apply all updates without prompting.
   -g, --global          Look at global modules.
   -s, --skip-unused     Skip check for unused packages.
   -p, --production      Skip devDependencies.
@@ -105,9 +106,15 @@ You can also use this for dry-run testing:
 NPM_CHECK_INSTALLER=echo npm-check -u
 ```
 
+#### `-y, --update-all`
+
+Updates your dependencies like `--update`, just without any prompt. This is especially useful if you want to automate your dependency updates with `npm-check`.
+
 #### `-g, --global`
 
 Check the versions of your globally installed packages.
+
+If the value of `process.env.NODE_PATH` is set, it will override the default path of global node_modules returned by package [`global-modules`](https://www.npmjs.com/package/global-modules).
 
 _Tip: Use `npm-check -u -g` to do a safe interactive update of global modules, including npm itself._
 
@@ -242,7 +249,7 @@ npmCheck(options)
 
 #### `currentState`
 
-The result of the promise is a `currentState` object, look in [state.js](https://github.com/dylang/npm-check/blob/master/lib/util/state.js) to see how it works.
+The result of the promise is a `currentState` object, look in [state.js](lib/state/state.js) to see how it works.
 
 You will probably want `currentState.get('packages')` to get an array of packages and the state of each of them.
 
